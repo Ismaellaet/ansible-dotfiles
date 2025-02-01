@@ -1,0 +1,6 @@
+- name: "Install Bitwarden CLI"
+  ansible.builtin.pacman:
+    name:
+      - bitwarden-cli
+    state: present
+  become: true
