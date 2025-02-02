@@ -1,0 +1,12 @@
+- name: "Install Productivity tools"
+  ansible.builtin.pacman:
+    name:
+      - lazygit
+      - fzf
+      - ripgrep
+      - fd
+      - exa
+      - bat
+      - xclip
+    state: present
+  become: true
