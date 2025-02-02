@@ -1,0 +1,6 @@
+- name: "Install Productivity tools"
+  ansible.builtin.pacman:
+    name:
+      - rust
+    state: present
+  become: true
