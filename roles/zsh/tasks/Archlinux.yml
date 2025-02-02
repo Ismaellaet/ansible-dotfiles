@@ -1,0 +1,55 @@
+- name: "Install Zsh"
+  community.general.pacman:
+    name:
+      - zsh
+    state: present
+  become: true
+
+- name: "Change default shell to zsh"
+  ansible.builtin.user:
+    name: "{{ ansible_user_id }}"
+    shell: /bin/zsh
+  become: true
+
+- name: "Install Oh-My-Zsh"
+  block:
+    - name: "Check if Oh-My-Zsh is already installed"
+      ansible.builtin.stat:
+        path: "{{ ansible_user_dir }}/.oh-my-zsh"
+      register: oh_my_zsh_stats
+    - name: "Install Oh-My-Zsh if not installed"
+      ansible.builtin.shell:
+        cmd: >
+          sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        creates: "{{ ansible_user_dir }}/.oh-my-zsh"
+      when: not oh_my_zsh_stats.stat.exists
+
+- name: Install Powerlevel10k theme # noqa: latest
+  ansible.builtin.git:
+    repo: "https://github.com/romkatv/powerlevel10k.git"
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/powerlevel10k"
+    depth: 1
+  changed_when: false
+
+- name: "Copy .zshrc"
+  ansible.builtin.copy:
+    src: ".zshrc"
+    dest: "{{ ansible_user_dir }}/.zshrc"
+    mode: "0644"
+
+- name: "Copy .p10k.zsh"
+  ansible.builtin.copy:
+    src: ".p10k.zsh"
+    dest: "{{ ansible_user_dir }}/.p10k.zsh"
+    mode: "0644"
+
+- name: "Install Zsh plugins"
+  block:
+    - name: "Install zsh-autosuggestions" # noqa: latest
+      ansible.builtin.git:
+        repo: "https://github.com/zsh-users/zsh-autosuggestions"
+        dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    - name: "Install zsh-autosuggestions" # noqa: latest
+      ansible.builtin.git:
+        repo: "https://github.com/zsh-users/zsh-syntax-highlighting"
+        dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
