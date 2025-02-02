@@ -1,11 +1,11 @@
 - name: "Retrieve SSH private key from Bitwarden"
-  command: "bw get notes ssh-private-key --session {{ bw_session.stdout }}"
+  ansible.builtin.command: "bw get notes ssh-private-key --session {{ bw_session.stdout }}"
   register: ssh_private_key
   changed_when: false
   no_log: true
 
 - name: "Retrieve SSH public key from Bitwarden"
-  command: "bw get notes ssh-public-key --session {{ bw_session.stdout }}"
+  ansible.builtin.command: "bw get notes ssh-public-key --session {{ bw_session.stdout }}"
   register: ssh_public_key
   changed_when: false
   no_log: true

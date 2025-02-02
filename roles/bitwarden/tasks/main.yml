@@ -1,5 +1,5 @@
 - name: "Include distribution tasks"
-  ansible.builtin.include_tasks: 'include-distribution-tasks.yml'
+  ansible.builtin.include_tasks: "include-distribution-tasks.yml"
 
 - name: "Ensure required environment variables are set"
   ansible.builtin.assert:
@@ -7,19 +7,18 @@
       - ansible_env.BW_CLIENTID is defined
       - ansible_env.BW_CLIENTSECRET is defined
       - ansible_env.BW_PASSWORD is defined
-    fail_msg: 
-      "The required Bitwarden environment variables (BW_CLIENTID, BW_CLIENTSECRET, BW_PASSWORD)"
+    fail_msg: "The required Bitwarden environment variables (BW_CLIENTID, BW_CLIENTSECRET, BW_PASSWORD)"
     quiet: true
 
 - name: "Log in to Bitwarden"
-  command: "bw login --apikey"
+  ansible.builtin.command: "bw login --apikey"
   register: bw_login
   changed_when: false
-  failed_when: 
+  failed_when:
     - "'You are already logged in' not in bw_login.stdout"
     - "'You are already logged in' not in bw_login.stderr"
 
 - name: "Unlock Bitwarden vault"
-  command: "bw unlock --raw --passwordenv BW_PASSWORD"
+  ansible.builtin.command: "bw unlock --raw --passwordenv BW_PASSWORD"
   register: bw_session
   changed_when: false
