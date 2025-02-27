@@ -17,6 +17,7 @@
   failed_when:
     - "'You are already logged in' not in bw_login.stdout"
     - "'You are already logged in' not in bw_login.stderr"
+    - "'You are logged in' not in bw_login.stdout"
 
 - name: "Unlock Bitwarden vault"
   ansible.builtin.command: "bw unlock --raw --passwordenv BW_PASSWORD"
