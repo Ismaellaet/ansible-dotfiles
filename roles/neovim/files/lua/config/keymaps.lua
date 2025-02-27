@@ -13,3 +13,5 @@ keymap.set("n", "<leader>pv", "<cmd>Ex<cr>", { desc = "Browse files" })
 keymap.set("x", "<leader>y", [["+y]], { desc = "Copy to system clipboard" })
 keymap.set("x", "<leader>d", [["_d]], { desc = "Delete (Black hole register)" })
 keymap.set("x", "<leader>p", [["_dP]], { desc = "Delete and Paste (Black hole register)" })
+keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
