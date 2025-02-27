@@ -27,7 +27,7 @@ source <(fzf --zsh)
 export PATH="$PATH:$HOME/.local/scripts/"
 
 alias vim="nvim"
-alias ls="exa"
+alias ls="eza"
 alias cat="bat"
 
 bindkey -s ^f "tmux-sessionizer\n"

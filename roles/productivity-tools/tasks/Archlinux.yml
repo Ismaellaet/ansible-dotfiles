@@ -5,7 +5,7 @@
       - fzf
       - ripgrep
       - fd
-      - exa
+      - eza
       - bat
       - xclip
     state: present
